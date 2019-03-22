@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
+import moment from 'moment'
+
 import './App.css';
+
 import './components/header/Header'
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import Main from "./components/main-component/Main";
-import Jokes from './components/main-component/Jokes'
+import Jokes from './components/main-component/Jokes';
+import Product from './components/main-component/Product';
+import productsData from './components/main-component/vschoolProducts';
+
+let date = moment().format();
 
 class App extends Component {
     state = {
@@ -26,6 +33,7 @@ class App extends Component {
         }]
     };
 
+    productComponents = productsData.map(item => <Product key={item.id} product={item}/>);
 
     render() {
         return (
@@ -33,7 +41,7 @@ class App extends Component {
                 <Header/>
                 <Main/>
                 <div className="Joke">
-                   {this.state.jokes.map((joke, index) => {
+                    {this.state.jokes.map((joke, index) => {
                         return <Jokes
                             click={() => this.deletePersonHandler(index)}
                             joke={joke.joke}
@@ -41,7 +49,11 @@ class App extends Component {
                         />
                     })}
                 </div>
+                <div>
+                    {this.productComponents}
+                </div>
                 <Footer/>
+
             </div>
         );
     }
